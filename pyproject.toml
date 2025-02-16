@@ -1,8 +1,8 @@
 [project]
-name = "_changeme_"
-description = "_changeme_"
+name = "waifu"
+description = "waifu"
 authors = [
-    { name="_changeme_", email="_changeme_" },
+    { name="Amina", email="aminahcvinson@gmail.com" },
 ]
 readme = "README.md"
 license = "MIT"
@@ -12,7 +12,7 @@ dynamic = [ "dependencies", "version" ]
 [tool.poetry]
 requires-poetry = ">=2.0"
 packages = [
-    { include = "_changeme_", from = "src" },
+    { include = "waifu", from = "src" },
 ]
 # Keep this a dev version, as the dynamic versioning plugin is used for actual release versions:
 version = "0.0.0.dev"
@@ -24,7 +24,7 @@ build-backend = "poetry_dynamic_versioning.backend"
 
 [project.scripts]
 # Add script entry points here.
-# _changeme_ = "_changeme_:main"
+# waifu = "waifu:main"
 
 # See:
 # https://github.com/python-poetry/poetry-plugin-shell
