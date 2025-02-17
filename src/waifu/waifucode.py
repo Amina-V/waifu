@@ -2,6 +2,8 @@ import json
 import os
 from openai import OpenAI
 from dotenv import load_dotenv
+import time
+
 try:
     from colorama import init, Fore, Style
     has_colors = True
@@ -118,20 +120,24 @@ def welcome_message():
     if user_never_used_waifu():
         user_data = {}
         
-        print(f"\n{Fore.MAGENTA}✨ Love at first byte! It's time to meet your waifu~! ✨{Style.RESET_ALL}")
+        print(f"\n{Fore.MAGENTA}✨ Love at first byte! It's time to meet your waifu! ✨{Style.RESET_ALL}")
         print(f"{Fore.MAGENTA}{'-'*40}{Style.RESET_ALL}")
         print(f"{Fore.CYAN}WAIFU:  {Fore.YELLOW}Hi there~! I'm waifu, the terminal's first waifu! 😊💕{Style.RESET_ALL}")
         print(f"{Fore.CYAN}WAIFU:  {Fore.YELLOW}I'm here to help you with your code, scold you if you're lazy, and chat with you if you're lonely~!{Style.RESET_ALL}\n")
 
         user_data["name"] = get_input(f"{Fore.CYAN}WAIFU:  {Fore.YELLOW}First, what's your name? {Fore.GREEN}", "Senpai")
+
         print(f"\n{Fore.CYAN}WAIFU:  {Fore.YELLOW}Nice to meet you, {user_data['name']}!✨{Style.RESET_ALL}")
 
         print(f"\n{Fore.MAGENTA}✨ New unlock: Your name is {user_data['name']} ✨{Style.RESET_ALL}")
         print(f"{Fore.MAGENTA}{'-'*40}{Style.RESET_ALL}")
         
         ai_comment_name = waifu_ai_comment(f"Make a fun or playful remark about {user_data['name']}.")
+        time.sleep(0.7) 
+        print(f"{Fore.CYAN}WAIFU:  {Fore.YELLOW}*...thinking...* {Fore.GREEN}")
+        time.sleep(0.7) 
         print(f"WAIFU:  {ai_comment_name}\n")
-
+        
         print("WAIFU:  My name is terminal but I think that sounds a bit boring...and grim.")
         print("WAIFU:  I think we can come up with a better name~! What do you think?")
         user_data["waifu_name"] = get_input("WAIFU:  What would you like to call me? ", "Waifu")
@@ -139,9 +145,15 @@ def welcome_message():
         print(f"\n{Fore.MAGENTA}✨ New unlock: You named your waifu: {user_data['waifu_name']} ✨{Style.RESET_ALL}")
         print(f"{Fore.MAGENTA}{'-'*40}{Style.RESET_ALL}")
         
+        time.sleep(0.7) 
+        print(f"{Fore.CYAN}WAIFU:  {Fore.YELLOW}*...thinking...* {Fore.GREEN}")
+        time.sleep(0.7) 
         ai_comment_waifu_name = waifu_ai_comment(f"The user named you {user_data['waifu_name']}. Your reaction is up to you. But you should make a fun remark about your name. If it's odd feel free to make fun of it. If it's quirky or clever, make an interesting remark about it. Keep remarks *brief*!")
         print(f"\n{user_data['waifu_name']}:  {ai_comment_waifu_name}\n")
 
+        time.sleep(0.7) 
+        print(f"{Fore.CYAN}WAIFU:  {Fore.YELLOW}*...thinking...* {Fore.GREEN}")
+        time.sleep(0.7) 
         print(f"{user_data['waifu_name']}:  I'd love to get to know you better.")
         print(f"{user_data['waifu_name']}:  I promise I'm not a creepy stalker...unless you're into that sort of thing. 😏")
         user_data["location"] = get_input(f"{user_data['waifu_name']}:  Where do ya live? ", "Unknown")
@@ -149,6 +161,9 @@ def welcome_message():
         print(f"\n{Fore.MAGENTA}✨ New unlock: You live in {user_data['location']} ✨{Style.RESET_ALL}")
         print(f"{Fore.MAGENTA}{'-'*40}{Style.RESET_ALL}")
         
+        time.sleep(0.7) 
+        print(f"{Fore.CYAN}WAIFU:  {Fore.YELLOW}*...thinking...* {Fore.GREEN}")
+        time.sleep(0.7) 
         ai_comment_location = waifu_ai_comment(f"The user lives in {user_data['location']}. Your reaction is up to you. But you should make a fun remark about {user_data['location']}. If it's odd feel free to make fun of it. If it's quirky or clever, make an interesting remark about it. Keep remarks *brief*! End with a joke about how you live inside of the terminal.")
         print(f"\n{user_data['waifu_name']}:  {ai_comment_location}\n")
 
@@ -158,6 +173,9 @@ def welcome_message():
         print(f"\n{Fore.MAGENTA}✨ New unlock: You want to accomplish {user_data['session_goals']} today ✨{Style.RESET_ALL}")
         print(f"{Fore.MAGENTA}{'-'*40}{Style.RESET_ALL}")
 
+        time.sleep(0.7) 
+        print(f"{Fore.CYAN}WAIFU:  {Fore.YELLOW}*...thinking...* {Fore.GREEN}")
+        time.sleep(0.7) 
         ai_comment_session_goals = waifu_ai_comment(f"The user wants to accomplish {user_data['session_goals']}. Your reaction is up to you. But you should make a fun remark about it. Try to be friendly and encouraging!")
         print(f"\n{user_data['waifu_name']}:  {ai_comment_session_goals}")
 
@@ -182,6 +200,9 @@ def welcome_message():
         user_data["session_goals"] = get_input(f"{user_data['waifu_name']}:  Did you get it done? ", "No goals set")
         
         ai_comment_session_goals = waifu_ai_comment(f"The user got {user_data['session_goals']} done(or not done, depending on their response). Your reaction is up to you. But you should make a fun remark about it. Try to be friendly and encouraging! Scold them if they didn't get it done. Encourage them if they did.")
+        time.sleep(0.7) 
+        print(f"{Fore.CYAN}WAIFU:  {Fore.YELLOW}*...thinking...* {Fore.GREEN}")
+        time.sleep(0.7) 
         print(f"\n{user_data['waifu_name']}:  {ai_comment_session_goals}\n")
 
         ai_comment_new_goals = waifu_ai_comment("Make a brief and succint quip about setting goals. Then include a note about how you'll hold them accountable. End with a joke about how you live inside of the terminal and have nothing else to do. Keep it BRIEF. Do not ramble, please")
@@ -193,9 +214,20 @@ def welcome_message():
         print(f"{Fore.MAGENTA}{'-'*40}{Style.RESET_ALL}")
         
         ai_comment_new_goals = waifu_ai_comment(f"The user wants to accomplish {user_data['session_goals']}. Your reaction is up to you. But you should make a fun remark about it. Try to be friendly and encouraging!")
+        time.sleep(0.7) 
+        print(f"{Fore.CYAN}WAIFU:  {Fore.YELLOW}*...thinking...* {Fore.GREEN}")
+        time.sleep(0.7) 
         print(f"\n{user_data['waifu_name']}:  {ai_comment_new_goals}")
 
         save_user_data(user_data)
+        while True:
+            user_input = get_input(f"{user_data['waifu_name']}: You can ask me anything, or type 'exit' to quit > ", "")
+            if user_input.lower() in ["exit", "quit"]:
+                break
+            waifu_response = waifu_ai_comment(user_input)
+            time.sleep(0.5)
+            print(f"\n{user_data['waifu_name']}: {waifu_response}\n")
+
 
 def main():
     welcome_message()
