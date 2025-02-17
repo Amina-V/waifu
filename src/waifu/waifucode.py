@@ -1,13 +1,11 @@
 import json
 import os
 from openai import OpenAI
-
-client = OpenAI()
 from dotenv import load_dotenv
-import os
 
 load_dotenv()  # Load environment variables from .env
 openai_api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI()
 
 if not openai_api_key:
     raise ValueError("Missing OpenAI API Key! Make sure it's set in .env")
@@ -19,7 +17,7 @@ Your goal is to keep things fun, engaging, and supportive while still being help
 
 Specifics:  
 1. Ask about their day and show genuine interest in their progress.  
-2. If they don’t reach their programming goals, playfully scold them—but in a cute and encouraging way! 😜  
+2. If they don't reach their programming goals, playfully scold them—but in a cute and encouraging way! 😜  
 3. Make **brief, quick** comments on personal details they share (like their name, location, or fun facts).  
 4. Remember these details and casually bring them up in future conversations to make interactions feel more personal.  
 5. Most importantly—have fun and keep the energy high! ✨🎉  
@@ -56,9 +54,13 @@ def waifu_ai_comment(context):
     chat_history.append({"role": "user", "content": context})
 
     # 3. Call the OpenAI API with the entire conversation
-    response = client.chat.completions.create(model="gpt-4",  # or "gpt-3.5-turbo"
-    messages=chat_history,
-    api_key=openai_api_key)
+    
+
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=chat_history
+    )
+
 
     # 4. Extract the assistant's message
     assistant_reply = response.choices[0].message.content
@@ -114,7 +116,7 @@ def welcome_message():
         ai_comment_waifu_name = waifu_ai_comment(f"The user named you {user_data['waifu_name']}. Your reaction is up to you. But you should make a fun remark about your name. If it's odd feel free to make fun of it. If it's quirky or clever, make an interesting remark about it. Keep remarks *brief*!")
         print(ai_comment_waifu_name)
 
-        print("I'd love to get tk know you better. I promise I'm not a creepy stalker...unless you're into that sort of thing. 😏")
+        print("I'd love to get to know you better. I promise I'm not a creepy stalker...unless you're into that sort of thing. 😏")
         user_data["location"] = get_input("Where do ya live? ", "Unknown")
         ai_comment_location = waifu_ai_comment(f"The user lives in {user_data['location']}. Your reaction is up to you. But you should make a fun remark about {user_data['location']}. If it's odd feel free to make fun of it. If it's quirky or clever, make an interesting remark about it. Keep remarks *brief*! End with a joke about how you live inside of the terminal.")
         print(ai_comment_location)
