@@ -1,0 +1,4 @@
+refresh chat logs:
+
+rm ~/.terminal_waifu.json        # Removes user data
+rm ~/.terminal_waifu_chat.json   # Removes chat history
