@@ -1,5 +1,6 @@
 import json
 import os
+import openai
 
 # Store user data in home directory
 USER_DATA_FILE = os.path.expanduser("~/.terminal_waifu.json")
