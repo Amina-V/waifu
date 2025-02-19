@@ -1,7 +1,6 @@
 Notes to myself on this project 
 
 What I will add this week:
-[] Lint formatting for the code.
 [] Waifu will have some ASCII art integration
 [] Waifu will have a game integrated (guess the blank thing)
 [] Waifu will have a story mode integrated 
