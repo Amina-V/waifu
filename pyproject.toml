@@ -39,6 +39,7 @@ openai = "^1.63.2"
 python-dotenv = "^1.0.1"
 colorama = "^0.4.6"
 pillow = "^11.1.0"
+pylint = "^3.3.4"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"

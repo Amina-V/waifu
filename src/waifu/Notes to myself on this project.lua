@@ -15,3 +15,6 @@ What works now (18-Feb-2025)
 [x] Waifu will talk to you in the chat 
 [x] Waifu can do Leet code challenges 
 [x] Waifu has a cute UI
+
+(19-Feb-2025)
+[x] Waifu code is linted! 8.05 score out of 10
