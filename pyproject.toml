@@ -40,6 +40,13 @@ python-dotenv = "^1.0.1"
 colorama = "^0.4.6"
 pillow = "^11.1.0"
 pylint = "^3.3.4"
+pygame = "^2.6.1"
+speechrecognition = "^3.14.1"
+gtts = "^2.5.4"
+pygithub = "^2.6.0"
+watchdog = "^6.0.0"
+config = "^0.5.1"
+storage = "^0.0.4.3"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"
