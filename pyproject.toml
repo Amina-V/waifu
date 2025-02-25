@@ -47,6 +47,8 @@ pygithub = "^2.6.0"
 watchdog = "^6.0.0"
 config = "^0.5.1"
 storage = "^0.0.4.3"
+requests = "^2.32.3"
+pylit = "^0.8.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"

@@ -1429,6 +1429,22 @@ spelling = ["pyenchant (>=3.2,<4.0)"]
 testutils = ["gitpython (>3)"]
 
 [[package]]
+name = "pylit"
+version = "0.8.0"
+description = "pylit: bidirectional text <-> code converter"
+optional = false
+python-versions = ">=2.7"
+groups = ["main"]
+files = [
+    {file = "pylit-0.8.0-py2.py3-none-any.whl", hash = "sha256:6d6ae3d0c44cd1c28de628ad4e5bfe6ca3c33d8ca72942715a582218e3b46049"},
+    {file = "pylit-0.8.0.tar.gz", hash = "sha256:157c3aac72c78297824d8983d2948331d3c3dfed83490296b48694edeca80f09"},
+]
+
+[package.extras]
+doc = ["sphinx"]
+test = ["nose"]
+
+[[package]]
 name = "pynacl"
 version = "1.5.0"
 description = "Python binding to the Networking and Cryptography (NaCl) library"
@@ -1973,4 +1989,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "4cc12315288268edff5e34e779c024ae5ac0817fc6b0df955fd3e5b327c665fe"
+content-hash = "647e8a4cb1344ac9bf742436fcb34123334f6588f96ea2d0d8bce04d5da3f0b0"

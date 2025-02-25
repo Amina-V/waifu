@@ -7,6 +7,7 @@ from .enhanced import EnhancedWaifuAssistant
 from datetime import datetime
 import colorama
 from colorama import Fore, Style
+import os
 
 # Initialize colorama
 colorama.init()
@@ -27,9 +28,10 @@ def initialize_user_data(storage_manager: StorageManager) -> dict:
 
 def user_never_used_waifu(storage_manager: StorageManager) -> bool:
     """Check if this is the user's first time using the waifu assistant."""
-    return not storage_manager.load_user_data()
+    # Check if the user_file exists instead of checking the data
+    return not os.path.exists(storage_manager.user_file)
 
-def welcome_message(waifu: EnhancedWaifuAssistant, storage_manager: StorageManager, ui_manager: UIManager) -> None:
+def welcome_message(waifu: EnhancedWaifuAssistant, storage_manager: StorageManager, ui_manager: UIManager) -> dict:
     """Original kawaii onboarding flow."""
     user_data = {}
 
@@ -101,24 +103,54 @@ def welcome_message(waifu: EnhancedWaifuAssistant, storage_manager: StorageManag
     )
     print(f"{user_data['waifu_name']}:  {ai_comment_session_goals}")
 
+    # After setting goals, introduce code review feature
+    print(f"\n{Fore.MAGENTA}✨ Special Feature Introduction! ✨{Style.RESET_ALL}")
+    print(f"{Fore.CYAN}{user_data['waifu_name']}: {Fore.YELLOW}Oh! I should mention - I can help review your code too! 💻✨{Style.RESET_ALL}")
+    print(f"{Fore.CYAN}{user_data['waifu_name']}: {Fore.YELLOW}Just type these commands when you need me:{Style.RESET_ALL}")
+    print(f"{Fore.GREEN}  !review [file_path]{Style.RESET_ALL} - I'll review a specific file")
+    print(f"{Fore.GREEN}  !review-dir [directory_path]{Style.RESET_ALL} - I'll review all Python files in a directory")
+    
+    ai_comment_feature = waifu.waifu_ai_comment(
+        "Make a cute, encouraging comment about helping with code review. Mention being thorough but gentle."
+    )
+    print(f"\n{user_data['waifu_name']}: {ai_comment_feature}")
+
     storage_manager.save_user_data(user_data)
     return user_data
 
 def handle_chat_loop(user_data: dict, waifu: EnhancedWaifuAssistant, ui_manager: UIManager) -> None:
-    """Main chat loop with original kawaii styling."""
+    """Main chat loop with original kawaii styling and code review commands."""
+    print(f"\n{Fore.YELLOW}Available commands:{Style.RESET_ALL}")
+    print(f"{Fore.GREEN}!review [file_path]{Style.RESET_ALL} - Review a specific file")
+    print(f"{Fore.GREEN}!review-dir [directory_path]{Style.RESET_ALL} - Review all Python files in a directory")
+    print(f"{Fore.GREEN}exit{Style.RESET_ALL} - Exit the chat")
+    
     while True:
         try:
             user_input = ui_manager.get_input(
-                f"{Fore.CYAN}{user_data['waifu_name']}: {Fore.YELLOW}Commands: '20q' (game), 'settings', 'clear' (reset chat), "
-                "'review [file]' (code review), 'pomodoro' (timer), 'voice' (toggle voice), 'export' (save chat), or 'exit' > {Style.RESET_ALL}"
+                f"{Fore.CYAN}{user_data['waifu_name']}: {Fore.YELLOW}Type a command or message > {Style.RESET_ALL}"
             )
             
             if user_input.lower() in ['exit', 'quit']:
                 print(f"{Fore.CYAN}Sayonara! (｡♥‿♥｡){Style.RESET_ALL}")
                 break
             
-            if waifu.process_command(user_input):
-                continue
+            # Handle code review commands - now more flexible with input formatting
+            if "!review" in user_input:
+                if "!review-dir" in user_input:
+                    dir_path = user_input.replace("!review-dir", "").strip("[] ").strip()
+                    if dir_path:
+                        waifu.review_directory(dir_path)
+                    else:
+                        print(f"{Fore.RED}Please provide a directory path! Example: !review-dir /path/to/directory{Style.RESET_ALL}")
+                    continue
+                else:
+                    file_path = user_input.replace("!review", "").strip("[] ").strip()
+                    if file_path:
+                        waifu.review_file(file_path)
+                    else:
+                        print(f"{Fore.RED}Please provide a file path! Example: !review /path/to/file.py{Style.RESET_ALL}")
+                    continue
                 
             response = waifu.chat(user_input)
             print(f"\n{Fore.CYAN}{user_data['waifu_name']}: {response}{Style.RESET_ALL}\n")
@@ -180,7 +212,6 @@ def main():
         raise
 
     waifu = EnhancedWaifuAssistant(client, storage_manager, ui_manager)
-    waifu.github.token = config.get("github_token")
     
     if user_never_used_waifu(storage_manager):
         user_data = welcome_message(waifu, storage_manager, ui_manager)
@@ -192,6 +223,11 @@ def main():
             f"{Fore.CYAN}{user_data['waifu_name']}: {Fore.YELLOW}Hey there {user_data['name']}! 💖 "
             f"{user_data['waifu_name']} missed you~!\n{Style.RESET_ALL}"
         )
+
+        # Add reminder about code review feature
+        print(f"{Fore.CYAN}{user_data['waifu_name']}: {Fore.YELLOW}Remember, I can help review your code! Just use:{Style.RESET_ALL}")
+        print(f"{Fore.GREEN}  !review [file_path]{Style.RESET_ALL} - For single file review")
+        print(f"{Fore.GREEN}  !review-dir [directory_path]{Style.RESET_ALL} - For directory review\n")
 
         # Location greeting
         ai_comment_location_greeting = waifu.waifu_ai_comment(
@@ -242,14 +278,6 @@ def main():
             f"The user wants to accomplish {user_data['session_goals']} now. React accordingly!"
         )
         print(f"\n{user_data['waifu_name']}: {ai_comment_new_goals2}")
-
-        # Check for achievements
-        if waifu.github.token:
-            activity = waifu.github.track_activity(user_data.get("github_username", ""))
-            if activity.get("commits"):
-                achievement = waifu.achievements.check_achievement("first_commit", True)
-                if achievement:
-                    print(f"\n{Fore.MAGENTA}✨ Achievement Unlocked: {achievement['name']} ✨{Style.RESET_ALL}")
 
         # Update mood and save data
         waifu.mood.update_mood({"time_since_break": 0, "code_quality": 0})
