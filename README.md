@@ -59,7 +59,7 @@ Next steps for updating waifu:
 [ ] Adding Ascii art to the outputs
 [ ] Making it available for others to add from their terminal
 
-## Running
+## Commands for running it
 
 ```shell
 # Run program: 
