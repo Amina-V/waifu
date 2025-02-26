@@ -55,9 +55,9 @@ Waifu is a terminal assistant built with OpenAI! Based on anime cuties, this per
 
 **What's next?**
 Next steps for updating waifu:
-[ ] Altering the prompt to make the outputs more natural
-[ ] Adding Ascii art to the outputs
-[ ] Making it available for others to add from their terminal
+[] Altering the prompt to make the outputs more natural
+[] Adding Ascii art to the outputs
+[] Making it available for others to add from their terminal
 
 ## Commands for running it
 
