@@ -1,8 +1,0 @@
-Commands
-
-Clear chat history: 
-
-Run program: 
-
-rm -rf ~/.waifu_data ~/.waifu_history
-python -m src.waifu.main
